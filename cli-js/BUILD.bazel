@@ -1,0 +1,13 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load(":cli_rule.bzl", "hello_cli")
+
+package(default_visibility = ["//visibility:public"])
+
+nodejs_binary(
+    name = "bin",
+    entry_point = "index.js",
+)
+
+hello_cli(
+    name = "my_hello"
+)

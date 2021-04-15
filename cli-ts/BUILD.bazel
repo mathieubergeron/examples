@@ -1,0 +1,25 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load(":cli_rule.bzl", "hello_cli")
+
+package(default_visibility = ["//visibility:public"])
+
+ts_library(
+    name = "cli",
+    srcs = glob(["*.ts"]),
+    module_name = "@mathieubergeron/cli",
+    module_root = "index.d.ts",
+    deps = [
+        "@npm//@types/node",
+    ],
+)
+
+nodejs_binary(
+    name = "bin",
+    data = [":cli"],
+    entry_point = "index.ts",
+)
+
+hello_cli(
+    name = "my_hello"
+)
